@@ -1,28 +1,23 @@
 package observer;
 
-import observable.MessagePublisher;
-import observable.Observable;
-import observable.PostImage;
-import observable.User;
+import entity.Article;
+import entity.Page;
+import entity.User;
 
 public abstract class AbsObserver implements Observer{
 	@Override
-	public void update(String m, Observable ob)
+	public void update(Article article, Observable ob)
 	{
-		System.out.println("From "+ ob.getClass() + " "+m);
-	}
-	
-	@Override
-	public void update(String m, MessagePublisher msgPub) {
-		// TODO Auto-generated method stub
+		System.out.println("New article: "+ article.getTitle());
 	}
 
 	@Override
-	public void update(String m, PostImage post) {
+	public void update(Article article, Page page) {
 		// TODO Auto-generated method stub	
 	}
+	
 	@Override
-	public void update(String m, User user) {
+	public void update(Article article, User user) {
 		// TODO Auto-generated method stub	
 	}
 }

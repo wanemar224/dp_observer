@@ -1,40 +1,43 @@
-import observable.User;
+import entity.Article;
+import entity.Page;
+import entity.User;
 
 public class Main {
 
 	public static void main(String[] args) {
-//		MessageSubscriberOne s1 = new MessageSubscriberOne();
-//        MessageSubscriberTwo s2 = new MessageSubscriberTwo();
-//        MessageSubscriberThree s3 = new MessageSubscriberThree();
-//        
-//        MessagePublisher p = new MessagePublisher();
-//        p.setName("Marwane");
-//        PostImage img = new PostImage();
-//        img.setImg("Studio S");
-        
+		        
         User alpha = new User();
-        alpha.setPseudo("Alpha");
+        alpha.setName("Alpha");
         User bodie = new User();
-        bodie.setPseudo("Bodie");
+        bodie.setName("Bodie");
         
-        alpha.attach(bodie);
+        Page pageInfos = new Page(alpha);
+        pageInfos.setName("pageInfos");
+        
+        //follow the page
+        pageInfos.attach(alpha);
+        
+        pageInfos.attach(bodie);
+        bodie.followPage(pageInfos);
+        
+        //follow alpha
         bodie.attach(alpha);
         
-        alpha.notifyUpdate("Je suis à Metz");
-        bodie.notifyUpdate("En route mec");
+        Article infoAlpha = new Article();
+        infoAlpha.setUser(alpha);
+        infoAlpha.setTitle("ArticleDeAlpha");
+        infoAlpha.setContent("Les nouvelles sur la session 3 de COVID plus de vie...");
         
-        //p.attach(s1);
-        //p.attach(s2);
-    
-        //img.attach(s2);
         
-        //p.notifyUpdate("First Message");   //s1 and s2 will receive the update
-        //img.notifyUpdate("image postée");
+        Article infoBodie = new Article();
+        infoBodie.setUser(bodie);
+        infoBodie.setTitle("ArticleDeBodie");
+        infoBodie.setContent("La session x de COVID les humains sont finalement sauvés");
         
-        //p.detach(s1);
-        //p.attach(s3);
-         
-        //p.notifyUpdate("Second Message"); //s2 and s3 will receive the update
+        alpha.publishArticleOnPage(pageInfos, infoAlpha);
+        bodie.publishArticleOnPage(pageInfos, infoBodie);
+        
+        bodie.notifyUpdate(infoBodie);
 	}
 
 }
